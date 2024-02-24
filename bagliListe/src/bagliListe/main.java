@@ -1,6 +1,5 @@
 package bagliListe;
 
-import javax.swing.JSpinner.ListEditor;
 
 public class main {
 
@@ -105,6 +104,20 @@ public class main {
 		
 		return list;
 	}
+
+	static LinkedList addFirst(LinkedList list, int data) {
+		Node temp = new Node(data);
+		
+		// liste boşsa
+		if(list.root == null) {
+			list.root = temp;
+		}else {
+			temp.next = list.root;
+			list.root = temp;
+		}
+		
+		return list;
+	}
 	
 	static LinkedList delete(LinkedList list, int deleteData) {
 		//eleman root'ta ise
@@ -125,4 +138,27 @@ public class main {
 		}
 		return list;
 	}
+	
+	static LinkedList addWithIndex(int index, int data, LinkedList list) throws ArrayIndexOutOfBoundsException{
+		try {
+			if(index == 0)
+				addFirst(list, data);
+			else {
+				Node temp = new Node(data);
+				int count = 0;
+				Node iter = list.root;
+				while(count < index - 1) {
+					iter = iter.next;
+					count++;
+				}
+				temp.next = iter.next;
+				iter.next = temp;
+			}
+				
+			return list;
+		} catch(NullPointerException e){
+			throw new ArrayIndexOutOfBoundsException();
+		}
+	}
+	
 }
